@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
-  namespace: lschneck
+  name: db-deployment
+  namespace: lschneck 
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
       - envFrom:
         - secretRef:
             name: db-secret
-        name: app-deployment
-        image: harbor.dev.afsmtddso.com/lschneck-harbor-project/app@sha256:8f291acdc359ad6743f3e6bf58e5f701830ebabec154931ebf5305e3e8026855
+        name: db-deployment
+        image:  harbor.dev.afsmtddso.com/lschneck-harbor-project/db@sha256:f9b11e1b4b152118e00857107f5d332e745394afc028c6975ceedf3539749320
         ports:
-        - containerPort: 5000
+        - containerPort: 5432
